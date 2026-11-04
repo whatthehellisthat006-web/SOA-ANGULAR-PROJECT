@@ -1,0 +1,48 @@
+<div class="container mt-4">
+  <form class="mb-4">
+    <div class="col-sm-4 col-md-4 col-lg-4">
+      <label class="form-label">Numéro Vol (recherche en direct)</label>
+      <input type="text" [(ngModel)]="searchTerm" name="searchTerm"
+             class="form-control" placeholder="Taper un numéro...">
+    </div>
+  </form>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Numéro</th>
+            <th>Origine</th>
+            <th>Destination</th>
+            <th>Date Départ</th>
+            <th>Date Arrivée</th>
+            <th>Compagnie</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vol of vols | searchFilter: searchTerm; track vol.idVol) {
+            <tr>
+              <td>{{ vol.idVol }}</td>
+              <td>{{ vol.numero }}</td>
+              <td>{{ vol.origine }}</td>
+              <td>{{ vol.destination }}</td>
+              <td>{{ vol.dateDepart | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ vol.dateArrivee | date:'dd/MM/yyyy HH:mm' }}</td>
+              @if (vol.compagnie) {
+                <td>{{ vol.compagnie.nom }}</td>
+              } @else {
+                <td class="text-danger">PAS DE COMPAGNIE</td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="text-center text-muted">Aucun vol trouvé !</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

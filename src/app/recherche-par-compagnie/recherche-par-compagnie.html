@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+    <label class="form-label">Compagnie</label>
+    <select class="form-select form-select-lg" id="idCompagnie"
+            name="idCompagnie" [(ngModel)]="idCompagnie" (change)="onChange()">
+      <option [ngValue]="undefined">-- Choisir une compagnie --</option>
+      @for (comp of compagnies; track comp.idCompagnie) {
+        <option [value]="comp.idCompagnie">{{ comp.nom }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Numéro</th>
+            <th>Origine</th>
+            <th>Destination</th>
+            <th>Date Départ</th>
+            <th>Date Arrivée</th>
+            <th>Compagnie</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vol of vols; track vol.idVol) {
+            <tr>
+              <td>{{ vol.idVol }}</td>
+              <td>{{ vol.numero }}</td>
+              <td>{{ vol.origine }}</td>
+              <td>{{ vol.destination }}</td>
+              <td>{{ vol.dateDepart | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ vol.dateArrivee | date:'dd/MM/yyyy HH:mm' }}</td>
+              @if (vol.compagnie) {
+                <td>{{ vol.compagnie.nom }}</td>
+              } @else {
+                <td class="text-danger">PAS DE COMPAGNIE</td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="text-center text-muted">Aucun vol trouvé pour cette compagnie !</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

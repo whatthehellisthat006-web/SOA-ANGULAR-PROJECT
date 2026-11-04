@@ -1,0 +1,22 @@
+<form>
+  <div [hidden]="ajout" class="mb-3">
+    <label class="form-label">ID Compagnie</label>
+    <input type="text" [(ngModel)]="compagnie.idCompagnie" name="idCompagnie" class="form-control w-25" readonly>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Nom Compagnie</label>
+    <input type="text" [(ngModel)]="compagnie.nom" name="nom" class="form-control"
+           placeholder="Entrez un nom de compagnie...">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <input type="text" [(ngModel)]="compagnie.description" name="description" class="form-control"
+           placeholder="Entrez une description...">
+  </div>
+  <div class="mt-2">
+    <button type="submit" [disabled]="!compagnie.nom" class="btn btn-success"
+            (click)="saveCompagnie()">
+      {{ ajout ? 'Ajouter' : 'Modifier' }}
+    </button>
+  </div>
+</form>

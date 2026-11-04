@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <div class="row justify-content-md-center">
+    <div class="col-md-4">
+      @if (erreur == 1) {
+        <div class="alert alert-danger">
+          <strong>Login ou mot de passe erroné.</strong>
+        </div>
+      }
+      <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Connexion</h5>
+        </div>
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label class="form-label">Nom Utilisateur :</label>
+              <input type="text" name="username" class="form-control"
+                     [(ngModel)]="user.username" placeholder="Entrez votre nom..." />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Mot de passe :</label>
+              <input type="password" name="password"
+                     [(ngModel)]="user.password" class="form-control" placeholder="Entrez votre mot de passe..." />
+            </div>
+            <div class="d-grid mt-4">
+              <button type="button" (click)="onLoggedin()"
+                      class="btn btn-primary btn-block">Connexion</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

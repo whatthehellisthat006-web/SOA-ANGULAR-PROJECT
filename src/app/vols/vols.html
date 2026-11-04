@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Numéro</th>
+            <th>Origine</th>
+            <th>Destination</th>
+            <th>Date Départ</th>
+            <th>Date Arrivée</th>
+            <th>Compagnie</th>
+            @if (authService.isAdmin()) {
+              <th colspan="2" class="text-center">Actions</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (vol of vols; track vol.idVol) {
+            <tr>
+              <td>{{ vol.idVol }}</td>
+              <td>{{ vol.numero }}</td>
+              <td>{{ vol.origine }}</td>
+              <td>{{ vol.destination }}</td>
+              <td>{{ vol.dateDepart | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ vol.dateArrivee | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ vol.compagnie?.nom }}</td>
+              @if (authService.isAdmin()) {
+                <td class="text-center">
+                  <a class="btn btn-success btn-sm" [routerLink]="['/updateVol', vol.idVol]">Modifier</a>
+                </td>
+                <td class="text-center">
+                  <a class="btn btn-danger btn-sm" (click)="supprimerVol(vol)">Supprimer</a>
+                </td>
+              }
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="9" class="text-center text-muted">Aucun vol trouvé !</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

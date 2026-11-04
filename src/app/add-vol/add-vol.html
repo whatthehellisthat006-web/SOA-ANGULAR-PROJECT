@@ -1,0 +1,44 @@
+<div class="container mt-4">
+  <div>
+    <h2>Ajouter un Vol :</h2>
+  </div>
+  <form>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Numéro</label>
+      <input type="text" [(ngModel)]="newVol.numero"
+          name="numero" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Origine</label>
+      <input type="text" [(ngModel)]="newVol.origine"
+          name="origine" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Destination</label>
+      <input type="text" [(ngModel)]="newVol.destination"
+          name="destination" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Date Départ</label>
+      <input type="datetime-local" [(ngModel)]="newVol.dateDepart"
+          name="dateDepart" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Date Arrivée</label>
+      <input type="datetime-local" [(ngModel)]="newVol.dateArrivee"
+          name="dateArrivee" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Compagnie</label>
+      <select class="form-select" id="idCompagnie"
+              name="idCompagnie" [(ngModel)]="newIdCompagnie">
+        @for (comp of compagnies; track comp.idCompagnie) {
+          <option [value]="comp.idCompagnie">{{ comp.nom }}</option>
+        }
+      </select>
+    </div>
+    <div class="mt-3">
+      <button type="submit" (click)="addVol()" class="btn btn-success">Ajouter</button>
+    </div>
+  </form>
+</div>

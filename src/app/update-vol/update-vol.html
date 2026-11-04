@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div>
+    <h2>Modifier un Vol :</h2>
+  </div>
+  <form>
+    <div class="col-sm-2 col-md-2 col-lg-2 mb-3">
+      <label class="form-label">ID</label>
+      <input readonly type="text" [(ngModel)]="currentVol.idVol"
+          name="idVol" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Numéro</label>
+      <input type="text" [(ngModel)]="currentVol.numero"
+          name="numero" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Origine</label>
+      <input type="text" [(ngModel)]="currentVol.origine"
+          name="origine" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Destination</label>
+      <input type="text" [(ngModel)]="currentVol.destination"
+          name="destination" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Date Départ</label>
+      <input type="datetime-local" [ngModel]="currentVol.dateDepart | date: 'yyyy-MM-ddTHH:mm'"
+          (ngModelChange)="currentVol.dateDepart = $event"
+          name="dateDepart" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Date Arrivée</label>
+      <input type="datetime-local" [ngModel]="currentVol.dateArrivee | date: 'yyyy-MM-ddTHH:mm'"
+          (ngModelChange)="currentVol.dateArrivee = $event"
+          name="dateArrivee" class="form-control">
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
+      <label class="form-label">Compagnie</label>
+      <select class="form-select" id="idCompagnie"
+              name="idCompagnie" [(ngModel)]="updatedCompagnieId">
+        @for (comp of compagnies; track comp.idCompagnie) {
+          <option [value]="comp.idCompagnie">{{ comp.nom }}</option>
+        }
+      </select>
+    </div>
+    <div class="mt-3">
+      <button type="submit" (click)="updateVol()" class="btn btn-success">Modifier</button>
+    </div>
+  </form>
+</div>
