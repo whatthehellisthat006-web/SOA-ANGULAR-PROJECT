@@ -7,16 +7,20 @@ import { RechercheParNumero } from './recherche-par-numero/recherche-par-numero'
 import { ListeCompagnies } from './liste-compagnies/liste-compagnies';
 import { Login } from './login/login';
 import { Forbidden } from './forbidden/forbidden';
-import { volGuard } from './guard/vol.guard';
+import { Register } from './register/register';
+import { VerifEmail } from './verif-email/verif-email';
+import { authGuard, volGuard } from './guard/vol.guard';
 
 export const routes: Routes = [
-  { path: 'vols', component: Vols },
+  { path: 'vols', component: Vols, canActivate: [authGuard] },
   { path: 'add-vol', component: AddVol, canActivate: [volGuard] },
-  { path: 'updateVol/:id', component: UpdateVol },
-  { path: 'rechercheParCompagnie', component: RechercheParCompagnie },
-  { path: 'rechercheParNumero', component: RechercheParNumero },
-  { path: 'listeCompagnies', component: ListeCompagnies },
+  { path: 'updateVol/:id', component: UpdateVol, canActivate: [volGuard] },
+  { path: 'rechercheParCompagnie', component: RechercheParCompagnie, canActivate: [authGuard] },
+  { path: 'rechercheParNumero', component: RechercheParNumero, canActivate: [authGuard] },
+  { path: 'listeCompagnies', component: ListeCompagnies, canActivate: [authGuard] },
   { path: 'login', component: Login },
-  { path: 'app-forbidden', component: Forbidden },
-  { path: '', redirectTo: 'vols', pathMatch: 'full' }
+  { path: 'register', component: Register },
+  { path: 'verifEmail', component: VerifEmail },
+  { path: 'app-forbidden', component: Forbidden, canActivate: [authGuard] },
+  { path: '', redirectTo: '/vols', pathMatch: 'full' }
 ];

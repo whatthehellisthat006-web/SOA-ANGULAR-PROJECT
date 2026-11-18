@@ -1,9 +1,17 @@
-<div class="container mt-4">
-  <form class="mb-4">
-    <div class="col-sm-4 col-md-4 col-lg-4">
-      <label class="form-label">Numéro Vol (recherche en direct)</label>
-      <input type="text" [(ngModel)]="searchTerm" name="searchTerm"
-             class="form-control" placeholder="Taper un numéro...">
+<div class="container mt-3">
+  <!-- 2) Recherche par numero en utilisant l'event keyup -->
+  <form class="row g-2 mb-2">
+    <div class="col-auto">
+      <label class="form-label">Numéro Vol en tapant (keyup)</label>
+      <input class="form-control" #searchKey (keyup)="onKeyUp(searchKey.value)">
+    </div>
+  </form>
+
+  <!-- 3) Recherche par numero en utilisant un pipe -->
+  <form class="row g-2 mb-3">
+    <div class="col-auto">
+      <label class="form-label">Numéro Vol en tapant (pipe)</label>
+      <input #num [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
     </div>
   </form>
 

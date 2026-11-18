@@ -1,30 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../model/user.model';
 import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './login.html',
-  styles: ``,
+  styles: ``
 })
-export class Login implements OnInit {
+export class Login {
   user = new User();
-  erreur = 0;
+  err: number = 0;
+  message: string = 'login ou mot de passe erronés..';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) { }
 
-  ngOnInit(): void {}
-
-  onLoggedin(): void {
-    let isValidUser: Boolean = this.authService.SignIn(this.user);
-    if (isValidUser) {
-      this.erreur = 0;
-      this.router.navigate(['/']);
-    } else {
-      this.erreur = 1;
-    }
+  onLoggedin() {
+    this.err = 0;
+    this.message = 'login ou mot de passe erronés..';
+    this.authService.login(this.user).subscribe({
+      next: (data) => {
+        let jwToken = data.headers.get('Authorization')!;
+        this.authService.saveToken(jwToken);
+        this.router.navigate(['/']);
+      },
+      error: (err: any) => {
+        this.err = 1;
+        if (err.error?.errorCause == 'disabled') {
+          this.message = 'Utilisateur désactivé, Veuillez contacter votre Administrateur';
+        }
+        this.cdr.markForCheck();
+      }
+    });
   }
 }

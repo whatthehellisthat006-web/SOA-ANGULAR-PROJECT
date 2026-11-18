@@ -2,7 +2,7 @@
   <div>
     <h2>Ajouter un Vol :</h2>
   </div>
-  <form>
+  <form (ngSubmit)="addVol()">
     <div class="col-sm-4 col-md-4 col-lg-4 mb-3">
       <label class="form-label">Numéro</label>
       <input type="text" [(ngModel)]="newVol.numero"
@@ -38,7 +38,10 @@
       </select>
     </div>
     <div class="mt-3">
-      <button type="submit" (click)="addVol()" class="btn btn-success">Ajouter</button>
+      <button type="submit" class="btn btn-success">Ajouter</button>
+    </div>
+    <div>
+      <h3 class="mt-2">{{message}}</h3>
     </div>
   </form>
 </div>

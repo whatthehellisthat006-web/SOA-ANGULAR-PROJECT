@@ -1,28 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from './services/auth';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App implements OnInit {
-  constructor(public authService: AuthService, private router: Router) {}
+  protected readonly title = signal('KoussayAirlineFront');
+
+  constructor(
+    public authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    const isloggedin = localStorage.getItem('isLoggedIn');
-    const loggedUser = localStorage.getItem('loggedUser');
-
-    if (isloggedin !== 'true' || !loggedUser) {
+    this.authService.loadToken();
+    if ((this.authService.getToken() == null ||
+        this.authService.isTokenExpired()) &&
+        !window.location.pathname.startsWith('/register') &&
+        !window.location.pathname.startsWith('/verifEmail'))
       this.router.navigate(['/login']);
-    } else {
-      this.authService.setLoggedUserFromLocalStorage(loggedUser);
-    }
   }
 
-  onLogout(): void {
+  onLogout() {
     this.authService.logout();
   }
 }
